@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "web": {
+      "command": "node server.js",
+      "port": 3333
+    }
+  }
+}

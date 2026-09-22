@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --bg: #0f172a;
+    --text: #f8fafc;
+    --text-muted: #94a3b8;
+    --line: #334155;
+    --accent: #38bdf8;
+    --accent-purple: #c084fc;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    line-height: 1.6;
+    padding: 40px 20px;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .header {
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    background: rgba(56,189,248,0.1);
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    border: 1px solid rgba(56,189,248,0.2);
+    margin-bottom: 12px;
+  }
+  h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.02em; }
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, #38bdf8 0%, #334155 100%);
+  }
+  .section-node {
+    position: relative;
+    margin-bottom: 32px;
+  }
+  .section-node::before {
+    content: "";
+    position: absolute;
+    left: -32px;
+    top: 4px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 3px solid var(--accent);
+    box-shadow: 0 0 10px rgba(56,189,248,0.5);
+  }
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .item-node {
+    position: relative;
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(51, 65, 85, 0.8);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    backdrop-filter: blur(8px);
+  }
+  .item-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .source {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent-purple);
+    font-weight: 600;
+  }
+  .time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .item-h {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .item-p {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="badge">LIVE FEED // 2026-09-20</div>
+    <h1>极客出海动态时间轴</h1>
+  </div>
+
+  <div class="timeline">
+    <div class="section-node">
+      <div class="section-title">01. 核心风向与极客实测</div>
+
+      <div class="item-node">
+        <div class="item-top">
+          <span class="source">LINUX DO</span>
+          <span class="time">2 小时前</span>
+        </div>
+        <div class="item-h">Claude 3.7 Sonnet 降智实测与 Anchor 注入技巧</div>
+        <div class="item-p">在复杂多文件重构场景下命中轻量化路由，通过注入系统级 Anchor 指令与限制单轮输出上下文深度，可稳定强制走主干高算力节点。</div>
+      </div>
+
+      <div class="item-node">
+        <div class="item-top">
+          <span class="source">r/LocalLLaMA</span>
+          <span class="time">4 小时前</span>
+        </div>
+        <div class="item-h">Qwen-2.5-Coder 32B EXL2 单卡 RTX 4090 极限吞吐测评</div>
+        <div class="item-p">32k 上下文下达到 68 tokens/s 峰值，显存常驻 21.4GB，本地 Code Reviewer 最优解。</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

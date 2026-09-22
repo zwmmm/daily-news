@@ -1,0 +1,32 @@
+[
+  {
+    "date": "2026-09-22",
+    "issue": "084",
+    "title": "Claude Code 深度集成多智能体树状工作流：从单点终端指令到端到端自主架构重构实测",
+    "heroImage": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop",
+    "observation": "终端智能体正从单线交互迈向高并发子智能体分治架构，通过 Git Worktree 隔离与 AST 无损重构彻底解决长工程上下文幻觉。",
+    "tags": ["AI编程", "智能体", "Apple", "中推"],
+    "summary": "全网实测 Claude Code 多智能体树状并发工作流；macOS 原生本地 AI 剪贴板神器 PasteAI 上架；中推热议架构设计成为 AI 编程核心壁垒；独立开发者靠 Mac 菜单栏音频工具月入 $8.2k 商业拆解。",
+    "url": "/posts/2026-09-22.html"
+  },
+  {
+    "date": "2026-09-20",
+    "issue": "083",
+    "title": "AI 编程迈入自愈时代：Cursor 联动 Browser-Use 实现“代码生成-浏览器实操-自动修复”全流程闭环",
+    "heroImage": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1200&auto=format&fit=crop",
+    "observation": "AI 编程工具正从被动代码补全转向主动端到端自愈验收，视觉智能体与本地 MCP 的结合彻底重构了个人开发者的交付效率。",
+    "tags": ["AI编程", "智能体", "Apple", "中推"],
+    "summary": "全网实测 Cursor 与 Browser-Use 联动实现端到端代码自愈；macOS 原生沉浸平铺窗口管理神器 ZenTiles 首发；中推热议全栈工程师定义重塑；一人团队靠 Mac 工具月入 $6.5k 商业拆解。",
+    "url": "/posts/2026-09-20.html"
+  },
+  {
+    "date": "2026-09-19",
+    "issue": "082",
+    "title": "Claude 3.7 Sonnet 多文件工程重构“降智截断”实测与系统级 Anchor 注入绕过技巧",
+    "heroImage": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1200&auto=format&fit=crop",
+    "observation": "智能体与代码编程的分水岭已从单轮代码生成转向基于 Git Worktree 的独立子智能体任务闭环与自动化测试自愈。",
+    "tags": ["大模型", "智能体", "Apple", "独立开发"],
+    "summary": "全网实测规避长代码 AST 路由降级；macOS 原生轻量菜单栏助手 MenuLLM 上架；中推热议 Cursor 对比 Windsurf；一人团队靠 Mac 视频工具月入 $8k 商业拆解。",
+    "url": "/posts/2026-09-19.html"
+  }
+]

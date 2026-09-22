@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>极客前沿纪事报 - {{DATE}}</title>
+<style>
+  :root {
+    --bg-page: #f9f8f5;
+    --bg-card: #ffffff;
+    --border-subtle: #e8e6df;
+    --border-warm: #ebd9c8;
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
+    --text-muted: #9ca3af;
+    --accent-red: #d93829;
+    --accent-light: #fff5f5;
+    --box-bg: #fbf9f2;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    line-height: 1.68;
+    padding: 36px 16px 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .newspaper-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: var(--bg-card);
+    padding: 44px 50px;
+    border-radius: 20px;
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.02);
+  }
+
+  /* 1. 顶部报头 */
+  .masthead {
+    margin-bottom: 24px;
+  }
+
+  .masthead-top {
+    display: grid;
+    grid-template-columns: 220px 1fr 220px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .masthead-author {
+    font-size: 11.5px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+  .masthead-author .name { font-size: 13.5px; color: #111; font-weight: 800; }
+  .masthead-author .loc { color: var(--text-muted); font-size: 11px; }
+
+  .masthead-main-title {
+    text-align: center;
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    color: #111;
+  }
+
+  .masthead-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+  }
+
+  .home-link-btn {
+    background: #111;
+    color: #fff;
+    padding: 8px 16px;
+    font-weight: 700;
+    font-size: 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .home-link-btn:hover {
+    background: var(--accent-red);
+    transform: translateY(-1px);
+  }
+
+  .masthead-date-bar {
+    text-align: center;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin: 12px 0 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+  .masthead-date-bar::before, .masthead-date-bar::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border-subtle);
+  }
+
+  /* 分类导航条（圆角胶囊风） */
+  .category-bar {
+    display: flex;
+    justify-content: space-between;
+    background: #fbfaf6;
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 6px 12px;
+    margin-bottom: 32px;
+    font-size: 13px;
+    font-weight: 700;
+    overflow-x: auto;
+  }
+
+  .category-item {
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 8px;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+  .category-item.active, .category-item:hover {
+    color: #111;
+    background: #ffffff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .category-item.active {
+    color: var(--accent-red);
+  }
+
+  /* 2. 报纸头版三栏网格 */
+  .front-page-grid {
+    display: grid;
+    grid-template-columns: 290px 1fr 290px;
+    gap: 32px;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 36px;
+    margin-bottom: 36px;
+  }
+
+  /* 左栏：次重点事件 */
+  .col-left {
+    border-right: 1px solid var(--border-subtle);
+    padding-right: 28px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 中间主 C 位：全网最热门头条（空间占用最大） */
+  .col-center {
+    padding: 0 6px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 右栏：快讯与侧榜 */
+  .col-right {
+    border-left: 1px solid var(--border-subtle);
+    padding-left: 28px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 标签样式（简洁现代极客风） */
+  .topic-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #374151;
+    background: #f3f0e6;
+    border: 1px solid #e5e0d3;
+    padding: 3px 9px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    width: fit-content;
+    letter-spacing: 0.02em;
+  }
+
+  .topic-tag.apple-tag {
+    color: #111;
+    background: #f0f0ed;
+    border: 1px solid #ddd9ce;
+    font-weight: 800;
+  }
+
+  .topic-tag.exclusive {
+    color: var(--accent-red);
+    background: var(--accent-light);
+    border: 1px solid #ffdcd6;
+    font-weight: 800;
+  }
+  /* 中间 C 位头条样式（圆角与柔和阴影） */
+  .hero-img-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 16px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  }
+
+  .hero-img {
+    width: 100%;
+    height: 330px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .hero-headline {
+    font-size: 27px;
+    font-weight: 900;
+    line-height: 1.35;
+    color: #111;
+    text-decoration: none;
+    margin: 8px 0 12px;
+    display: block;
+    letter-spacing: -0.015em;
+    transition: color 0.15s ease;
+  }
+  .hero-headline:hover { color: var(--accent-red); }
+
+  .hero-summary {
+    font-size: 15px;
+    color: #374151;
+    line-height: 1.75;
+    margin-bottom: 16px;
+  }
+  .hero-summary p { margin-bottom: 10px; }
+  .hero-summary p:last-child { margin-bottom: 0; }
+
+  .hero-fact {
+    background: var(--box-bg);
+    border-left: 4px solid var(--accent-red);
+    border-top: 1px solid var(--border-warm);
+    border-right: 1px solid var(--border-warm);
+    border-bottom: 1px solid var(--border-warm);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px;
+    font-size: 13.5px;
+    margin-bottom: 16px;
+    color: #222;
+    line-height: 1.65;
+  }
+  /* 左侧栏样式 */
+  .left-img {
+    width: 100%;
+    height: 175px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    display: block;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  }
+
+  .sub-headline {
+    font-size: 17.5px;
+    font-weight: 800;
+    line-height: 1.4;
+    color: #111;
+    text-decoration: none;
+    margin: 6px 0 10px;
+    display: block;
+    transition: color 0.15s ease;
+  }
+  .sub-headline:hover { color: var(--accent-red); }
+
+  .sub-summary {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.68;
+    margin-bottom: 14px;
+  }
+
+  .read-more-link {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent-red);
+    text-decoration: none;
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: gap 0.15s ease;
+  }
+  .read-more-link:hover { gap: 6px; text-decoration: underline; }
+
+  /* 右侧栏：快讯列表 */
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--accent-red);
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+  }
+
+  .quick-news-list {
+    list-style: none;
+  }
+
+  .quick-news-item {
+    border-bottom: 1px dashed var(--border-subtle);
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+  }
+  .quick-news-item:last-child {
+    border-bottom: none;
+  }
+
+  .quick-news-title {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: #111;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 4px;
+    transition: color 0.15s ease;
+  }
+  .quick-news-title:hover { color: var(--accent-red); }
+
+  .quick-news-meta {
+    font-size: 11.5px;
+    color: var(--text-muted);
+  }
+
+  .sidebar-bottom-card {
+    margin-top: 14px;
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 14px;
+  }
+
+  .sidebar-thumb-img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  /* 3. 下方板块详细网格（卡片圆角与软阴影） */
+  .sections-title-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4px;
+    margin: 40px 0 20px;
+    font-size: 13.5px;
+    font-weight: 800;
+  }
+
+  .sections-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .section-card {
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    padding: 22px;
+    background: #fafaf8;
+    transition: all 0.2s ease;
+  }
+  .section-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+    border-color: #cfcac0;
+  }
+
+  .section-card-tag {
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    background: #111;
+    padding: 3px 8px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+
+  .section-card-title {
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  .section-card-title a { color: #111; text-decoration: none; transition: color 0.15s ease; }
+  .section-card-title a:hover { color: var(--accent-red); }
+
+  .section-card-desc {
+    font-size: 13.5px;
+    color: #4b5563;
+    line-height: 1.62;
+    margin-bottom: 12px;
+  }
+
+  .section-card-footer {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    border-top: 1px dashed var(--border-subtle);
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* 报尾 */
+  footer.colophon {
+    border-top: 1px solid var(--border-subtle);
+    margin-top: 56px;
+    padding-top: 24px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="newspaper-container">
+  <!-- 报头 -->
+  <header class="masthead">
+    <div class="masthead-top">
+      <div class="masthead-author">
+        <div class="name">极客自动化纪事</div>
+        <div class="loc">全球前沿视野 · 条条可溯源</div>
+      </div>
+      <h1 class="masthead-main-title">极客前沿纪事报</h1>
+      <div class="masthead-right">
+        <span>第 {{ISSUE_NUM}} 期</span>
+        <a href="/" class="home-link-btn">← 往期长廊</a>
+      </div>
+    </div>
+
+    <div class="masthead-date-bar">
+      <span>{{DATE}} · 每日极客与智能体前沿早报</span>
+    </div>
+
+    <nav class="category-bar">
+      <a href="#sec1" class="category-item active">01. 新模型与大模型首发</a>
+      <a href="#sec2" class="category-item">02. 智能体与代码编程</a>
+      <a href="#sec3" class="category-item">03. 苹果与小而美应用</a>
+      <a href="#sec4" class="category-item">04. 中文推特热点动态</a>
+      <a href="#sec5" class="category-item">05. 独立开发与商业账本</a>
+    </nav>
+  </header>
+
+  <!-- 头版核心网格 (Top Story Grid) -->
+  <main class="front-page-grid">
+    
+    <!-- 左栏：次热门头条 (Secondary Story) -->
+    <section class="col-left">
+      {{SECONDARY_STORY_HTML}}
+    </section>
+
+    <!-- 中间主 C 位：全网最热门核心大事件 (HERO STORY - 空间占用最大) -->
+    <section class="col-center">
+      {{HERO_STORY_HTML}}
+    </section>
+
+    <!-- 右栏：快讯与侧榜 (Hot News & Fast Bites) -->
+    <aside class="col-right">
+      <div class="sidebar-header">
+        <span>⚡ 今日热度速递</span>
+      </div>
+
+      <ul class="quick-news-list">
+        {{HOT_NEWS_ITEMS_HTML}}
+      </ul>
+
+      <div class="sidebar-bottom-card">
+        {{SIDEBAR_CARD_HTML}}
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- 下方各板块详情分栏 -->
+  <div class="sections-title-bar">
+    <span>全部精选深度归档</span>
+    <span>5 大前沿板块 · 纯粹克制</span>
+  </div>
+
+  <div class="sections-grid">
+    {{SECTIONS_CARDS_HTML}}
+  </div>
+
+  <!-- 报尾 -->
+  <footer class="colophon">
+    <div>极客前沿纪事报 · 由智能自动化引擎每日清晨驱动排版</div>
+    <div style="margin-top: 4px;">条条可溯源 · 绝无公关通稿与废话套话</div>
+  </footer>
+</div>
+
+</body>
+</html>

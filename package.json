@@ -1,0 +1,13 @@
+{
+  "name": "daily-geek-chronicle",
+  "version": "1.0.0",
+  "description": "每日极客与出海技术简报及历史纪事长廊",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["daily-news", "ai", "geek", "indie-hacker", "chronicle"],
+  "author": "Paseo Agent",
+  "license": "MIT"
+}

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>极客与出海纪事报 - 每日头版</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Noto+Serif+SC:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+  :root {
+    --bg-paper: #ffffff;
+    --border-dark: #111111;
+    --border-light: #e2e2e2;
+    --text-primary: #111111;
+    --text-secondary: #555555;
+    --text-muted: #888888;
+    --accent-red: #d93829;
+    --badge-bg: #fff1f0;
+    --badge-border: #ffa39e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: #f6f5f0;
+    color: var(--text-primary);
+    font-family: 'Noto Serif SC', 'Playfair Display', Georgia, serif;
+    line-height: 1.6;
+    padding: 24px 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .newspaper-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: var(--bg-paper);
+    padding: 32px 40px;
+    border: 1px solid #dcd9ce;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+
+  /* 1. 顶部报头 (Masthead) */
+  .masthead {
+    margin-bottom: 12px;
+  }
+
+  .masthead-top {
+    display: grid;
+    grid-template-columns: 200px 1fr 200px;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .masthead-author {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+  .masthead-author .name { font-size: 13px; color: #000; }
+  .masthead-author .loc { color: var(--text-muted); font-size: 10px; }
+
+  .masthead-main-title {
+    text-align: center;
+    font-family: 'Cinzel', 'Playfair Display', serif;
+    font-size: 46px;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    color: #000;
+    text-transform: uppercase;
+  }
+
+  .masthead-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+  }
+
+  .sub-btn {
+    background: #ffefe8;
+    color: var(--accent-red);
+    border: 1px solid #ffbb96;
+    padding: 6px 14px;
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+  }
+
+  .masthead-date-bar {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    margin: 8px 0 16px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+  .masthead-date-bar::before, .masthead-date-bar::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #111;
+  }
+
+  /* 分类导航条 */
+  .category-bar {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #111;
+    border-bottom: 2px solid #111;
+    padding: 8px 0;
+    margin-bottom: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    overflow-x: auto;
+  }
+
+  .category-item {
+    color: #111;
+    text-decoration: none;
+    padding: 2px 8px;
+    white-space: nowrap;
+  }
+  .category-item.active {
+    color: var(--accent-red);
+  }
+  .category-item:hover {
+    color: var(--accent-red);
+  }
+
+  /* 2. 报纸头版三栏网格 (Front Page Grid) */
+  .front-page-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr 280px;
+    gap: 28px;
+    border-bottom: 2px solid #111;
+    padding-bottom: 32px;
+    margin-bottom: 32px;
+  }
+
+  /* 左栏：次重点事件 (Secondary Feature) */
+  .col-left {
+    border-right: 1px solid var(--border-light);
+    padding-right: 24px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 中间主 C 位：全网最热门头条 (HERO STORY) - 占用空间最大！ */
+  .col-center {
+    padding: 0 4px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 右栏：快讯与侧榜 (Hot News / Sidebar) */
+  .col-right {
+    border-left: 1px solid var(--border-light);
+    padding-left: 24px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 标签样式 */
+  .topic-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+  }
+
+  .topic-tag.exclusive {
+    color: var(--accent-red);
+    background: var(--badge-bg);
+    border: 1px dashed var(--badge-border);
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-weight: 800;
+  }
+
+  /* 中间 C 位头条样式 */
+  .hero-img-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 14px;
+    border: 1px solid #e0e0e0;
+    background: #000;
+  }
+
+  .hero-img {
+    width: 100%;
+    height: 340px;
+    object-fit: cover;
+    display: block;
+    filter: contrast(1.04);
+  }
+
+  .hero-headline {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: 30px;
+    font-weight: 900;
+    line-height: 1.25;
+    color: #000;
+    text-decoration: none;
+    margin: 8px 0 12px;
+    display: block;
+    letter-spacing: -0.02em;
+  }
+  .hero-headline:hover { color: var(--accent-red); }
+
+  .hero-summary {
+    font-size: 15px;
+    color: #262626;
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+
+  .hero-fact {
+    background: #fbf8f1;
+    border-left: 3px solid var(--accent-red);
+    border-right: 1px solid #ebd8c8;
+    border-top: 1px solid #ebd8c8;
+    border-bottom: 1px solid #ebd8c8;
+    padding: 10px 14px;
+    font-family: 'JetBrains Mono', 'Noto Serif SC', monospace;
+    font-size: 13px;
+    margin-bottom: 12px;
+    color: #222;
+  }
+
+  /* 左侧栏样式 */
+  .left-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .sub-headline {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.35;
+    color: #111;
+    text-decoration: none;
+    margin: 6px 0 10px;
+    display: block;
+  }
+  .sub-headline:hover { color: var(--accent-red); }
+
+  .sub-summary {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 12px;
+  }
+
+  .read-more-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent-red);
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-top: auto;
+    display: inline-block;
+  }
+  .read-more-link:hover { text-decoration: underline; }
+
+  /* 右侧栏：快讯列表 */
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--accent-red);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid #111;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+  }
+
+  .quick-news-list {
+    list-style: none;
+  }
+
+  .quick-news-item {
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+  .quick-news-item:last-child {
+    border-bottom: none;
+  }
+
+  .quick-news-title {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #111;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .quick-news-title:hover { color: var(--accent-red); }
+
+  .quick-news-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--text-muted);
+  }
+
+  .sidebar-bottom-card {
+    margin-top: 14px;
+    border-top: 1px solid #111;
+    padding-top: 12px;
+  }
+
+  .sidebar-thumb-img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 8px;
+  }
+
+  /* 3. 下方板块详细网格 (5 大板块分栏展示) */
+  .sections-title-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid #111;
+    border-bottom: 1px solid #111;
+    padding: 6px 0;
+    margin: 36px 0 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .sections-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .section-card {
+    border: 1px solid var(--border-light);
+    padding: 18px;
+    background: #fafaf8;
+  }
+
+  .section-card-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    background: #111;
+    padding: 2px 6px;
+    display: inline-block;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .section-card-title {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 8px;
+  }
+  .section-card-title a { color: #111; text-decoration: none; }
+  .section-card-title a:hover { color: var(--accent-red); }
+
+  .section-card-desc {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+  .section-card-footer {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    border-top: 1px dashed var(--border-light);
+    padding-top: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* 报尾 */
+  footer.colophon {
+    border-top: 3px double #111;
+    margin-top: 40px;
+    padding-top: 16px;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="newspaper-container">
+  <!-- 报头 Masthead -->
+  <header class="masthead">
+    <div class="masthead-top">
+      <div class="masthead-author">
+        <div class="name">BY PASEO AGENT</div>
+        <div class="loc">GLOBAL TECH DISPATCH</div>
+      </div>
+      <h1 class="masthead-main-title">THE GEEK DISPATCH</h1>
+      <div class="masthead-right">
+        <span>ISSUE #082</span>
+        <a href="#" class="sub-btn">SUBSCRIBE $0</a>
+      </div>
+    </div>
+
+    <div class="masthead-date-bar">
+      <span>2026 年 09 月 20 日 · 每日技术早报</span>
+    </div>
+
+    <nav class="category-bar">
+      <a href="#sec1" class="category-item active">01. 核心实测 ×</a>
+      <a href="#sec2" class="category-item">02. AGENT 前线 ×</a>
+      <a href="#sec3" class="category-item">03. 出海基建 ×</a>
+      <a href="#sec4" class="category-item">04. 独立开发 ×</a>
+      <a href="#sec5" class="category-item">05. 深度工程 ×</a>
+    </nav>
+  </header>
+
+  <!-- 头版核心网格 (Top Story Grid) -->
+  <main class="front-page-grid">
+    
+    <!-- 左栏：次热门头条 (Secondary Story) -->
+    <section class="col-left">
+      <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop" class="left-img" alt="Infra Tech">
+      <div class="topic-tag">🌐 出海基建 / NODESEEK</div>
+      <a href="#" class="sub-headline">Hetzner 芬兰 ARM 服务器打造 7x24 高可用爬虫集群实操</a>
+      <div class="sub-summary">
+        月付 €14.8 获取 16 核 32G 内存算力，配合 Cloudflare Tunnel 穿透管理 12 个常驻监控 Bot，资源占用率长期低于 18%。
+      </div>
+      <a href="#" class="read-more-link">READ FULL DISPATCH →</a>
+    </section>
+
+    <!-- 中间 C 位：全网最热门核心大事件 (HERO STORY - 空间占用最大) -->
+    <section class="col-center">
+      <div class="hero-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop" class="hero-img" alt="Top Hero Story">
+      </div>
+      <div class="topic-tag exclusive">🔥 TODAY'S TOP SIGNAL // LINUX DO</div>
+      <a href="#" class="hero-headline">CLAUDE 3.7 SONNET 多文件重构“降智”实测与系统级 ANCHOR 注入绕过技巧</a>
+      <div class="hero-summary">
+        全网极客深度实测证实：在超过 40k AST 上下文复杂重构场景下，API 路由易静默切入轻量级算力分支导致代码截断。通过注入系统级 Anchor 锚点并强制解耦为 Workspace Subagent 独立闭环，准确率大幅回升 34%。
+      </div>
+      <div class="hero-fact">
+        <strong>【核心避坑】</strong> 严禁单会话堆叠大体积依赖文件；优先启用 <code>git worktree</code> 隔离分支调度。
+      </div>
+      <a href="#" class="read-more-link">READ IN-DEPTH REPORT & BENCHMARKS →</a>
+    </section>
+
+    <!-- 右栏：快讯与侧榜 (Hot News & Fast Bites) -->
+    <aside class="col-right">
+      <div class="sidebar-header">
+        <span>⚡ HOT NEW DISPATCH</span>
+      </div>
+
+      <ul class="quick-news-list">
+        <li class="quick-news-item">
+          <a href="#" class="quick-news-title">Qwen-2.5-Coder 32B EXL2 在单张 RTX 4090 达到 68 tok/s 极限吞吐</a>
+          <div class="quick-news-meta">r/LocalLLaMA · 2h ago</div>
+        </li>
+        <li class="quick-news-item">
+          <a href="#" class="quick-news-title">Claude Code 计费暗改：两段式顶模 Plan + IDE Composer 节省 75% 账单</a>
+          <div class="quick-news-meta">r/cursor · 4h ago</div>
+        </li>
+        <li class="quick-news-item">
+          <a href="#" class="quick-news-title">独立开发者月入 $8k 反思：放弃重型后台，7天极简 MVP + LTD 快速回血</a>
+          <div class="quick-news-meta">Indie Hackers · 6h ago</div>
+        </li>
+      </ul>
+
+      <div class="sidebar-bottom-card">
+        <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=800&auto=format&fit=crop" class="sidebar-thumb-img" alt="React & Tech">
+        <a href="#" class="quick-news-title">SWE-bench 最新霸榜：多智能体隐空间通讯架构 LatentMAS 评测解密</a>
+        <a href="#" class="read-more-link">VIEW PAPER →</a>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- 下方各板块详情分栏 -->
+  <div class="sections-title-bar">
+    <span>FULL DISPATCH ARCHIVE // 深度分栏</span>
+    <span>5 板块 · 11 信源巡检</span>
+  </div>
+
+  <div class="sections-grid">
+    <div class="section-card">
+      <span class="section-card-tag">01 / 极客实测</span>
+      <h3 class="section-card-title"><a href="#">vLLM 0.7.x Continuous Batching 生产级高并发压测实录</a></h3>
+      <p class="section-card-desc">对比 FP8 与 AWQ 方案，在 128 并发请求下首字延迟缩短 42%，显存碎片率控制在 3% 以下。</p>
+      <div class="section-card-footer">
+        <span>信源: r/LocalLLaMA</span>
+        <a href="#" style="color:var(--accent-red);text-decoration:none;">详情 ↳</a>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <span class="section-card-tag">02 / AGENT 前线</span>
+      <h3 class="section-card-title"><a href="#">Cline + Docker 沙箱自动化测试自愈回环落地实录</a></h3>
+      <p class="section-card-desc">结合 AST 语法检查与自动化测试回环，代码交付无需人工二次干预即可直接提 PR。</p>
+      <div class="section-card-footer">
+        <span>信源: GitHub Trending</span>
+        <a href="#" style="color:var(--accent-red);text-decoration:none;">详情 ↳</a>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <span class="section-card-tag">04 / 独立开发</span>
+      <h3 class="section-card-title"><a href="#">出海合规收单全面拥抱 MoR 模式（Lemon Squeezy 实战）</a></h3>
+      <p class="section-card-desc">化解欧美多国跨境增值税（VAT）代缴与申报难题，个人开发者 0 财税负担收款。</p>
+      <div class="section-card-footer">
+        <span>信源: V2EX 创意节点</span>
+        <a href="#" style="color:var(--accent-red);text-decoration:none;">详情 ↳</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 报尾 -->
+  <footer class="colophon">
+    <div>PRINTED DAILY BY PASEO AUTOMATION ENGINE · THE KANTO / NYT STYLE EDITORIAL BROADSHEET</div>
+    <div style="margin-top: 4px;">条条可溯源 · 绝无公关稿与陈词滥调</div>
+  </footer>
+</div>
+
+</body>
+</html>

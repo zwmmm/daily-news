@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap');
+  :root {
+    --bg: #000000;
+    --card: #0a0a0a;
+    --border: #222222;
+    --border-hover: #333333;
+    --text: #ededed;
+    --text-muted: #888888;
+    --accent-blue: #0070f3;
+    --accent-cyan: #50e3c2;
+    --accent-amber: #f5a623;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Geist', -apple-system, sans-serif;
+    line-height: 1.6;
+    padding: 40px 20px;
+  }
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .status-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 24px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+  }
+  .status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #50e3c2;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    background: #50e3c2;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #50e3c2;
+  }
+  h1.title {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    margin-bottom: 8px;
+    background: linear-gradient(180deg, #fff 0%, #a1a1a1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+  }
+  .lead-box {
+    background: linear-gradient(90deg, rgba(0,112,243,0.08) 0%, rgba(80,227,194,0.04) 100%);
+    border: 1px solid rgba(0,112,243,0.3);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 32px;
+    font-size: 14px;
+  }
+  .lead-title {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    color: var(--accent-cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 32px 0 16px;
+  }
+  .section-label::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .card-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    transition: all 0.2s ease;
+  }
+  .card-item:hover {
+    border-color: var(--border-hover);
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+  }
+  .tag {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: #181818;
+    border: 1px solid #2e2e2e;
+    color: #a1a1a1;
+  }
+  .tag.hot {
+    background: rgba(245,166,35,0.1);
+    border-color: rgba(245,166,35,0.3);
+    color: #f5a623;
+  }
+  .tag.blue {
+    background: rgba(0,112,243,0.1);
+    border-color: rgba(0,112,243,0.3);
+    color: #3291ff;
+  }
+  .card-desc {
+    font-size: 13px;
+    color: #a1a1a1;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  .code-inline {
+    font-family: 'Geist Mono', monospace;
+    background: #141414;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid #282828;
+    color: #79ffe1;
+    font-size: 12px;
+  }
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #1a1a1a;
+    padding-top: 10px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    color: #666;
+  }
+  .card-footer a {
+    color: #ededed;
+    text-decoration: none;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="status-header">
+    <div class="status-indicator">
+      <div class="dot"></div>
+      <span>SYSTEM OPERATIONAL · 2026-09-20</span>
+    </div>
+    <div style="color: #666;">ISSUE_ID // 0x52</div>
+  </div>
+
+  <h1 class="title">GEEK & OVERSEAS DISPATCH</h1>
+  <div class="subtitle">极客前沿探索 · Coding Agent 实测 · 出海基建与独立开发账本</div>
+
+  <div class="lead-box">
+    <div class="lead-title">[ TODAY'S SIGNAL ]</div>
+    <div>Coding Agent 正加速从单体 Prompt 转向多 Workspace 分布式协同；测试与回归验证能力已成核心竞争力分水岭。</div>
+  </div>
+
+  <div class="section-label">01 // CORE_LLM_BENCHMARK</div>
+
+  <div class="card-item">
+    <div class="card-top">
+      <a href="#" class="card-title">Claude 3.7 Sonnet 降智实测与反向注入 Anchor 技巧</a>
+      <span class="tag hot">LINUX DO</span>
+    </div>
+    <div class="card-desc">
+      实测在多文件重构中引入 <span class="code-inline">--no-context-collapse</span> 配合结构化 Anchor，避开轻量级 Router 降级，准确率回升 34%。
+    </div>
+    <div class="card-footer">
+      <span>TOPIC_ID: #89421</span>
+      <a href="#">INSPECT_SOURCE →</a>
+    </div>
+  </div>
+
+  <div class="card-item">
+    <div class="card-top">
+      <a href="#" class="card-title">Qwen-2.5-Coder 32B EXL2 单卡 RTX 4090 吞吐极限</a>
+      <span class="tag blue">r/LocalLLaMA</span>
+    </div>
+    <div class="card-desc">
+      基于 <span class="code-inline">vLLM 0.7.2</span> 实测 32k 上下文达 <span class="code-inline">68 tok/s</span>，显存占用 21.4GB，本地 Code Reviewer 最优性价比解。
+    </div>
+    <div class="card-footer">
+      <span>BENCHMARK_STARS: 1.4k</span>
+      <a href="#">VIEW_REPO →</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

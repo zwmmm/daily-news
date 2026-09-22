@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --bg: #faf9f6;
+    --text: #1a1a1a;
+    --text-muted: #666;
+    --accent: #b45309;
+    --border: #e5e5e0;
+    --card-bg: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    line-height: 1.65;
+    padding: 40px 20px;
+  }
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 48px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+  }
+  header {
+    border-bottom: 2px solid #1a1a1a;
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+  }
+  .site-eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  h1.title {
+    font-family: 'Newsreader', serif;
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 1.15;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+  .meta-bar {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    border-top: 1px solid #eee;
+    padding-top: 12px;
+  }
+  .lead-quote {
+    background: #fdfaf6;
+    border-left: 3px solid var(--accent);
+    padding: 16px 20px;
+    margin-bottom: 36px;
+    font-size: 15px;
+    color: #444;
+    font-style: italic;
+  }
+  .section-heading {
+    font-family: 'Newsreader', serif;
+    font-size: 22px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+    margin: 36px 0 20px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .item {
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #eaeaea;
+  }
+  .item:last-child { border-bottom: none; }
+  .item-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .item-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111;
+    text-decoration: none;
+  }
+  .pill {
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    background: #f3f3ee;
+    padding: 2px 8px;
+    border-radius: 12px;
+    color: #555;
+    border: 1px solid #e0e0d8;
+  }
+  .item-body {
+    font-size: 14px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .item-meta {
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .item-meta a { color: var(--accent); text-decoration: none; font-weight: 500; }
+  .highlight-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 10px 14px;
+    font-size: 13px;
+    border-radius: 4px;
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="site-eyebrow">The Daily Dispatches · Issue #082</div>
+    <h1 class="title">极客与出海技术简报</h1>
+    <div class="meta-bar">
+      <span>2026-09-20 / SATURDAY</span>
+      <span>11 信源巡检 · 14 条精选</span>
+    </div>
+  </header>
+
+  <div class="lead-quote">
+    <strong>今日主编观察：</strong>Coding Agent 从简单的 Diff 补丁走向基于 Workspace Worktree 的并行集群调度，开发者生产力的瓶颈已经完全从“代码生成”转移到“评审与验证吞吐量”。
+  </div>
+
+  <div class="section-heading">
+    <span class="section-num">01 /</span>
+    <span>核心风向与极客实测</span>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <span class="pill">LINUX DO</span>
+      <a href="#" class="item-title">Claude 3.7 Sonnet 降智实测与防降级 Prompt 注入技巧</a>
+    </div>
+    <div class="item-body">
+      社区多位深度用户反馈在复杂多文件重构场景下命中轻量化路由。实测通过注入系统级 Anchor 指令与显式限制单轮输出上下文深度，可稳定强制走主干高算力节点。
+    </div>
+    <div class="highlight-box">
+      <strong>避坑结论：</strong> 避免单次上下文塞入超过 40k 的无序 AST，拆分 subagent 分发效果提升 3.4 倍。
+    </div>
+    <div class="item-meta" style="margin-top: 8px;">
+      <a href="#">↳ 阅读原帖讨论 (42 赞 / 128 回复)</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <span class="pill">r/LocalLLaMA</span>
+      <a href="#" class="item-title">Qwen-2.5-Coder 32B EXL2 4.0bpw 在单张 4090 上的吞吐极限测评</a>
+    </div>
+    <div class="item-body">
+      使用 vLLM + FlashAttention-3 实测在 32k 上下文下达到 68 tokens/s 峰值，显存常驻 21.4GB，极适合做本地 CI 自动化 Code Reviewer。
+    </div>
+    <div class="item-meta">
+      <a href="#">↳ 查看 GitHub Benchmark 仓库</a>
+    </div>
+  </div>
+
+  <div class="section-heading">
+    <span class="section-num">02 /</span>
+    <span>出海基建与低成本折腾</span>
+  </div>
+  <div class="item">
+    <div class="item-header">
+      <span class="pill">NodeSeek</span>
+      <a href="#" class="item-title">Hetzner 芬兰机房 ARM 架构 CAX41 跑 7x24 Agent 集群实操</a>
+    </div>
+    <div class="item-body">
+      月付 €14.8 搞定 16 核 32GB 内存，搭配 Cloudflare Tunnel 免暴露公网端口，承载 12 个常驻爬虫与通知 Bot 负载低于 15%。
+    </div>
+  </div>
+</div>
+</body>
+</html>

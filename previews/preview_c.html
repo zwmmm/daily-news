@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+  :root {
+    --bg: #f8fafc;
+    --sidebar: #ffffff;
+    --text: #0f172a;
+    --text-muted: #64748b;
+    --primary: #2563eb;
+    --border: #e2e8f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6;
+    padding: 30px;
+  }
+  .layout {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 32px;
+  }
+  .toc-sidebar {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    position: sticky;
+    top: 30px;
+    height: fit-content;
+  }
+  .toc-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    letter-spacing: 0.05em;
+  }
+  .toc-list { list-style: none; }
+  .toc-list li { margin-bottom: 8px; }
+  .toc-list a {
+    color: #475569;
+    text-decoration: none;
+    font-size: 13px;
+    display: block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.15s;
+  }
+  .toc-list a:hover { background: #eff6ff; color: var(--primary); }
+  .toc-list a.active { background: #eff6ff; color: var(--primary); font-weight: 600; }
+  .main-content {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 36px;
+  }
+  .issue-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 20px;
+    margin-bottom: 28px;
+  }
+  .issue-badge {
+    display: inline-block;
+    background: #eff6ff;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 12px;
+    padding: 2px 10px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+  }
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+  .desc { font-size: 14px; color: var(--text-muted); }
+  .lead-box {
+    background: #f1f5f9;
+    border-left: 4px solid var(--primary);
+    padding: 14px 18px;
+    font-size: 14px;
+    margin-bottom: 28px;
+    border-radius: 0 6px 6px 0;
+  }
+  .sec-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 28px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sec-title::before {
+    content: "";
+    width: 4px;
+    height: 18px;
+    background: var(--primary);
+    border-radius: 2px;
+  }
+  .entry-block {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px;
+    margin-bottom: 16px;
+  }
+  .entry-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .structured-grid {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 6px 12px;
+    font-size: 13px;
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+  .label-cell {
+    font-weight: 600;
+    color: #64748b;
+  }
+  .val-cell { color: #334155; }
+  .val-cell a { color: var(--primary); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="layout">
+  <div class="toc-sidebar">
+    <div class="toc-title">目录导航 (TOC)</div>
+    <ul class="toc-list">
+      <li><a href="#" class="active">卷首观察</a></li>
+      <li><a href="#">01 核心风向与实测</a></li>
+      <li><a href="#">02 Agent 与工具链</a></li>
+      <li><a href="#">03 出海基建与低成本</a></li>
+      <li><a href="#">04 独立开发商业账本</a></li>
+      <li><a href="#">05 深度工程与论文</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="issue-header">
+      <span class="issue-badge">第 082 期 · 2026-09-20</span>
+      <h1>极客与出海技术手册</h1>
+      <div class="desc">结构化四段式极简归档 · 条条可溯源 · 绝无废话套话</div>
+    </div>
+
+    <div class="lead-box">
+      <strong>今日观察：</strong> Coding Agent 的核心架构竞争已从 Prompt 工程转向 Workspace 隔离调度与自动化校验闭环。
+    </div>
+
+    <div class="sec-title">01 / 核心风向与极客实测</div>
+
+    <div class="entry-block">
+      <div class="entry-title">Claude 3.7 Sonnet 降智实测与系统 Anchor 技巧</div>
+      <div class="structured-grid">
+        <div class="label-cell">【核心结论】</div>
+        <div class="val-cell">大长文本重构易被路由至轻量级模型，需配合 Anchor 强制锁定高算力节点。</div>
+        <div class="label-cell">【实测细节】</div>
+        <div class="val-cell">单次会话塞入文件不超过 40k AST 时表现最佳，配合 subagent 分发准确率提升 34%。</div>
+        <div class="label-cell">【成本避坑】</div>
+        <div class="val-cell">注意 API 深度思考 token 计费放大效应，建议设置 Thinking 预算上限。</div>
+        <div class="label-cell">【信源出处】</div>
+        <div class="val-cell"><a href="#">LINUX DO 社区原帖讨论 ↳</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

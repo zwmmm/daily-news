@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>极客与出海纪事报 - 报纸排版版</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400;1,600&family=Noto+Serif+SC:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --paper-bg: #f7f5ee;
+    --ink-black: #111111;
+    --ink-muted: #555550;
+    --ink-light: #777770;
+    --rule-color: #222222;
+    --rule-light: #d8d6cb;
+    --accent-crimson: #8b1e1e;
+    --box-bg: #eeebe0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--paper-bg);
+    color: var(--ink-black);
+    font-family: 'Noto Serif SC', 'Playfair Display', Georgia, 'Songti SC', serif;
+    line-height: 1.75;
+    padding: 30px 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .broadsheet {
+    max-width: 840px;
+    margin: 0 auto;
+    background: #fbf9f2;
+    padding: 40px 48px;
+    border: 1px solid #dfded5;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+  }
+
+  /* 报头设计 (Masthead) */
+  .masthead {
+    text-align: center;
+    border-bottom: 3px double var(--rule-color);
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+  }
+
+  .newspaper-subhead {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--accent-crimson);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .masthead-title {
+    font-family: 'Cinzel', 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    margin: 8px 0;
+    color: var(--ink-black);
+    text-transform: uppercase;
+  }
+
+  .masthead-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--rule-color);
+    border-bottom: 1px solid var(--rule-color);
+    padding: 6px 4px;
+    margin-top: 14px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--ink-muted);
+  }
+
+  /* 今日头版社论 (Lead Editorial) */
+  .lead-editorial {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 18px 22px;
+    background: var(--box-bg);
+    border: 1px solid #ded9cb;
+    border-left: 4px solid var(--accent-crimson);
+    margin-bottom: 32px;
+  }
+
+  .lead-label {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 13px;
+    color: var(--accent-crimson);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .lead-text {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.6;
+    color: #1a1a1a;
+  }
+
+  /* 板块分割线与标题 */
+  .section-divider {
+    border-top: 2px solid var(--rule-color);
+    margin: 36px 0 20px;
+    padding-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--ink-black);
+    letter-spacing: -0.01em;
+  }
+
+  .section-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-light);
+    text-transform: uppercase;
+  }
+
+  /* 资讯条目 */
+  .news-article {
+    margin-bottom: 28px;
+    padding-bottom: 22px;
+    border-bottom: 1px dashed var(--rule-light);
+  }
+
+  .news-article:last-child {
+    border-bottom: none;
+  }
+
+  .article-header {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .source-stamp {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    background: #111;
+    color: #fbf9f2;
+    padding: 1px 7px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .article-headline {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--ink-black);
+    text-decoration: none;
+  }
+
+  .article-headline:hover {
+    color: var(--accent-crimson);
+    text-decoration: underline;
+  }
+
+  .article-body {
+    font-size: 14.5px;
+    color: #2b2b2b;
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+
+  /* 报纸插图组件 */
+  .newspaper-figure {
+    margin: 14px 0 16px;
+    background: #fff;
+    border: 1px solid #dcd9ce;
+    padding: 6px;
+  }
+
+  .newspaper-figure img {
+    width: 100%;
+    height: auto;
+    max-height: 320px;
+    object-fit: cover;
+    display: block;
+    filter: contrast(1.03) brightness(0.98);
+  }
+
+  .figure-caption {
+    font-size: 12px;
+    color: var(--ink-muted);
+    font-style: italic;
+    padding: 6px 4px 2px;
+    border-top: 1px solid #f0eee5;
+    margin-top: 4px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* 报纸数据与实测卡盒 */
+  .fact-sheet {
+    background: #f2efe4;
+    border: 1px solid #d5d1c2;
+    border-radius: 2px;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-family: 'JetBrains Mono', 'Noto Serif SC', monospace;
+    margin: 10px 0 12px;
+    color: #333;
+  }
+
+  .fact-sheet strong {
+    color: var(--accent-crimson);
+  }
+
+  .article-footer {
+    display: flex;
+    justify-content: flex-end;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+
+  .article-footer a {
+    color: var(--accent-crimson);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .article-footer a:hover {
+    text-decoration: underline;
+  }
+
+  /* 报尾 */
+  footer.colophon {
+    border-top: 3px double var(--rule-color);
+    margin-top: 40px;
+    padding-top: 16px;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-light);
+  }
+</style>
+</head>
+<body>
+
+<div class="broadsheet">
+  <!-- 报头 -->
+  <header class="masthead">
+    <div class="newspaper-subhead">THE GEEK & INDIE GLOBAL CHRONICLE</div>
+    <h1 class="masthead-title">极客与出海纪事报</h1>
+    <div class="masthead-bar">
+      <span>VOL. XXVI · NO. 82</span>
+      <span>2026 年 09 月 20 日 · 每日早刊</span>
+      <span>SHANGHAI & GLOBAL ED.</span>
+    </div>
+  </header>
+
+  <!-- 今日头版主笔观察 -->
+  <div class="lead-editorial">
+    <div class="lead-label">◆ 今日主笔观察 / EDITORIAL NOTE</div>
+    <div class="lead-text">
+      “Coding Agent 的分水岭已不再是单轮代码补全的准确度，而是多分支工作区（Workspace Worktree）的并发吞吐能力。开发者正在从码农全面转型为自动化测试与代码审查的集群指挥官。”
+    </div>
+  </div>
+
+  <!-- 第一版：核心风向与极客实测 -->
+  <div class="section-divider">
+    <h2 class="section-title">01 / 核心风向与极客实测</h2>
+    <span class="section-meta">FRONTIER BENCHMARK</span>
+  </div>
+
+  <article class="news-article">
+    <div class="article-header">
+      <span class="source-stamp">LINUX DO</span>
+      <a href="https://linux.do" class="article-headline">Claude 3.7 Sonnet 复杂重构降智反馈与系统级 Anchor 绕过方案</a>
+    </div>
+    <div class="article-body">
+      社区多位开发者实测发现，当长上下文单次传入超过 40k AST 时，API 路由有较大概率降级至精简算力分支。通过强制注入系统级结构化锚点（Anchor）并在任务分发层拆分独立的 Subagent 子任务，可稳定维持高阶思维深度。
+    </div>
+
+    <!-- 报纸插图示例 -->
+    <figure class="newspaper-figure">
+      <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop" alt="LLM Benchmark Comparison">
+      <figcaption class="figure-caption">
+        <span>【实测图谱】多轮上下文扩容下的 Token 吞吐与推理精度衰减曲线对照</span>
+        <span>来源：社区自动化测评实验室</span>
+      </figcaption>
+    </figure>
+
+    <div class="fact-sheet">
+      <strong>避坑结论：</strong> 严禁单会话无序堆叠依赖文件；建议以 <code>git worktree</code> 隔离工作区并配合独立测试套件自动校验。
+    </div>
+
+    <div class="article-footer">
+      <a href="#">↳ 查阅原帖深度讨论（142 条回帖）→</a>
+    </div>
+  </article>
+
+  <article class="news-article">
+    <div class="article-header">
+      <span class="source-stamp">r/LocalLLaMA</span>
+      <a href="#" class="article-headline">Qwen-2.5-Coder 32B EXL2 4.0bpw 在单张 RTX 4090 上的极限部署实测</a>
+    </div>
+    <div class="article-body">
+      配合 vLLM 0.7.x 与 FlashAttention-3，在 32k 上下文极限压测下实现 68 tokens/s 吞吐，显存常驻稳定在 21.4GB，成为目前极客本地自建 CI Code Reviewer 的黄金性价比方案。
+    </div>
+    <div class="article-footer">
+      <a href="#">↳ 访问 GitHub 评测仓库 →</a>
+    </div>
+  </article>
+
+  <!-- 第二版：出海基建与低成本折腾 -->
+  <div class="section-divider">
+    <h2 class="section-title">02 / 出海基建与低成本折腾</h2>
+    <span class="section-meta">INFRA & INDIE OPS</span>
+  </div>
+
+  <article class="news-article">
+    <div class="article-header">
+      <span class="source-stamp">NodeSeek</span>
+      <a href="#" class="article-headline">Hetzner 芬兰 ARM 架构服务器搭建 7x24 高可用爬虫集群方案</a>
+    </div>
+    <div class="article-body">
+      月付 €14.8 获取 16 核 32G 内存算力，通过 Cloudflare Tunnel 穿透配合 Docker Swarm 管理 12 个常驻监控与资讯抓取 Bot，资源占用率长期维持在 18% 以下。
+    </div>
+    <div class="fact-sheet">
+      <strong>实测配置：</strong> CAX41 (16 vCPU ARM64, 32GB RAM, 320GB NVMe) / 月付 €14.8 / 附送 20TB 出口流量。
+    </div>
+    <div class="article-footer">
+      <a href="#">↳ 节点论坛原帖与自动化脚本 →</a>
+    </div>
+  </article>
+
+  <!-- 报尾 -->
+  <footer class="colophon">
+    <div>PRINTED DAILY BY PASEO AUTOMATION ENGINE · ALL SOURCES VERIFIED</div>
+    <div style="margin-top: 4px;">条条可溯源 · 绝无公关稿与陈词滥调</div>
+  </footer>
+</div>
+
+</body>
+</html>
