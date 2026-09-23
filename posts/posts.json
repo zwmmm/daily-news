@@ -1,5 +1,15 @@
 [
   {
+    "date": "2026-09-23",
+    "issue": "085",
+    "title": "Anthropic 首发 Claude Opus 5.5 旗舰模型：长程复杂代码迁移跃升、降价与终端智能体架构实测拆解",
+    "heroImage": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
+    "observation": "超长工程迁移的关键在于通过 AST 静态拓扑注入系统级锚点，并由终端 Coordinator 协调并发 Worktree 分支完成严密闭环。",
+    "tags": ["大模型", "AI编程", "智能体", "Apple"],
+    "summary": "Anthropic 突发发布 Claude Opus 5.5 旗舰模型；macOS 原生 GPU 加速终端新标杆 Ghostty 深度测评；MCP 成为 Linux 基金会官方托管项目；独立开发者基于 WhisperKit 首月破 $5k MRR 商业复盘。",
+    "url": "/posts/2026-09-23.html"
+  },
+  {
     "date": "2026-09-22",
     "issue": "084",
     "title": "Claude Code 深度集成多智能体树状工作流：从单点终端指令到端到端自主架构重构实测",
